@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    const exit = confirm('Are you sure ?')
+    /** todo : proposer un dialog plus sexy ... */
+    const exit = confirm('Are you sure ?');
     if (exit) {
       this.srvAuth.logout();
     }
