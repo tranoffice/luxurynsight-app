@@ -1,0 +1,54 @@
+@function get-text-color($color) {
+    @if (lightness($color) > 50) {
+        @return #000000;
+    }
+    @else {
+        @return #ffffff;
+    }
+}
+
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/prebuilt-themes/purple-green.css';
+@import '~@angular/material/_theming';
+@import './app/shared/styles/loaders.scss';
+@include mat-core();
+@import './app/shared/styles/themes/default.scss';
+
+/* ----------------------------------------------
+    mixin functions
+   ---------------------------------------------- */
+// Custom color for each theme
+@mixin set-material-theme($theme) {
+    $primaryColor: mat-color(map-get($theme, primary));
+    $primaryColor100: mat-color(map-get($theme, primary), 100);
+    $textColorOnPrimaryBG: get-text-color($primaryColor);
+    
+    .cdk-row:hover {
+        background-color: $primaryColor100;
+    }
+    .cdktable-row:hover {
+        background-color: $primaryColor100;
+    }
+    .dialog-tooltip {
+        .dialog-header {
+            background-color: $primaryColor;
+            color: $textColorOnPrimaryBG;
+        }
+    }
+}
+
+// Create a custom material theme with a color palette as input
+@mixin create-theme($theme-palette) {
+    $primary: mat-palette(map-get($theme-palette, primary));
+    $accent:  mat-palette(map-get($theme-palette, accent));
+    $warn:    mat-palette($mat-deep-orange);
+    $theme:   mat-light-theme($primary, $accent, $warn);
+    @include angular-material-theme($theme);
+    @include set-material-theme( $theme);
+}
+
+/* ----------------------------------------------
+    create four material themes
+   ---------------------------------------------- */
+.default-theme { @include create-theme($default-palette); }

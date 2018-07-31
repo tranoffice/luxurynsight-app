@@ -1,16 +1,49 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routing';
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './shared/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { HomeComponent } from './home/components/home/home.component';
+import { HeaderComponent } from './header/components/header/header.component';
+import { LoginComponent } from './account/components/login/login.component';
+import { AccountComponent } from './account/components/account/account.component';
+
+import { HeaderService } from './header/services/header.service';
+import { AuthService } from './account/services/auth.service';
+import { AuthGuardService } from './account/services/auth-guard.service';
+
+import 'hammerjs';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    HeaderComponent,
+    LoginComponent,
+    AccountComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule,
+    AppRoutingModule,
+    MaterialModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  exports: [
+  ],
+  providers: [
+    HeaderService,
+    AuthService,
+    AuthGuardService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,15 @@
+<div class="accountContainer">
+  <form class="accountForm" name="accountForm" (ngSubmit)="save()" [formGroup]="accountForm" novalidate>
+    <h2>Billing Address</h2>
+    <mat-form-field>
+      <input name='firstname' formControlName='firstname' matInput placeholder="Your firstname" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input name='lastname' formControlName='lastname' matInput placeholder="Your lastname" required>
+    </mat-form-field>
+    <mat-form-field>
+      <input name='email' formControlName='email' matInput placeholder="Email Address" required>
+    </mat-form-field>
+    <button mat-raised-button color="accent">Save</button>
+  </form>
+</div>

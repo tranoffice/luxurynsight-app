@@ -1,0 +1,16 @@
+.mat-toolbar-multiple-rows {
+    min-height: 40px!important;
+}
+.mat-toolbar-row, .mat-toolbar-single-row {
+    height: 40px!important;
+    padding: 0px!important;    
+}
+
+.fill-remaining-space {
+    flex: 1 1 auto;
+}
+
+.hdr-user {
+    font-size: 14px;
+    margin-right: 10px;
+}

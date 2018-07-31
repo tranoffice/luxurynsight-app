@@ -1,0 +1,19 @@
+<div class="loginContainer">
+  <form class="loginForm" name="loginForm" (ngSubmit)="login()" [formGroup]="loginForm" novalidate>
+    <h2>Please sign in</h2>
+    <mat-form-field>
+      <input name='email' formControlName='email' matInput placeholder="Email Address" required>
+      <mat-error *ngIf='loginForm.controls.email.errors?.InvalidEmail'>
+        <span>Invalid email address</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input type='password' name='password' formControlName='password' matInput placeholder="Password" required>
+      <mat-error *ngIf='loginForm.controls.password.errors?.InvalidPassword'>
+        <span>Or invalid password</span>
+      </mat-error>
+    </mat-form-field>
+    <mat-checkbox name='rememberme' formControlName='rememberme'>Remenber me</mat-checkbox>
+    <button mat-raised-button color="accent">Sign In</button>
+  </form>
+</div>

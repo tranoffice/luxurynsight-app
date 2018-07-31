@@ -1,0 +1,45 @@
+  @mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+  }
+
+  @mixin fontsize($size: 24, $base: 16) {
+    font-size: $size + px;
+    font-size: ($size / $base) * 1rem;
+  }
+
+  @mixin absPosition ($top: auto, $right: auto, $bottom: auto, $left: auto) {
+    position: absolute;
+    top: $top;
+    right: $right;
+    bottom: $bottom;
+    left: $left;
+  }
+
+  @mixin opacity($opacity) {
+    opacity: $opacity;
+    $opacityIE: $opacity * 100;
+    filter: alpha(opacity=$opacityIE);
+  }
+
+  @mixin animation($animation...) {
+    -o-animation: $animation;
+    -moz-animation: $animation;
+    -webkit-animation: $animation;
+    animation: $animation;
+  }
+
+  @mixin centerer($horizontal: true, $vertical: true) {
+    position: absolute;
+    @if ($horizontal and $vertical) {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    } @else if ($horizontal) {
+      left: 50%;
+      transform: translateX(-50%);
+    } @else if ($vertical) {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }

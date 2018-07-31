@@ -1,0 +1,22 @@
+<div *ngIf="srvHeader.isVisible">
+  <mat-toolbar color="accent">
+    <mat-toolbar-row>
+      <!-- Partie gauche du header -->
+      <button mat-button color="white" [routerLink]="['/']">
+        Home
+      </button>
+      <button mat-button color="white" [routerLink]="['/account']">
+        My account
+      </button>
+      <button mat-button color="white" (click)="logout()">
+        Logout
+      </button>
+
+      <!-- Filler séparateur -->
+      <span class="fill-remaining-space"></span>
+  
+      <!-- Partie droite du header -->
+      <span class="hdr-user">{{srvHeader.userFirstname}}</span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

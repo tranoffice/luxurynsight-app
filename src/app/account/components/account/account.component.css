@@ -1,0 +1,12 @@
+.accountContainer {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.accountForm {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
