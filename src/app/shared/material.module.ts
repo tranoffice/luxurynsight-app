@@ -72,7 +72,6 @@ import { MatFormFieldModule, MatCardModule,
     MatTabsModule,
     MatSortModule,
   ],
-  declarations: [],
   providers: [
     // {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
     ],

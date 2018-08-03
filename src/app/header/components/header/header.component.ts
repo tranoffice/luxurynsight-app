@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../services/header.service';
 import { AuthService } from '../../../account/services/auth.service';
 import { MatDialog } from '@angular/material';
+import { DialogPanelComponent } from './../../../shared/components/dialog-panel/dialog-panel.component';
 
 @Component({
   selector: 'app-header',
@@ -20,10 +21,19 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    /** todo : proposer un dialog plus sexy ... */
-    const exit = confirm('Are you sure ?');
-    if (exit) {
-      this.srvAuth.logout();
+    const dialog = this.dialog.open(DialogPanelComponent, {
+      data: {
+        content: 'Are you sure ?',
+        title: 'Exit',
+        type: 'yesno'
+      }
+    });
+    dialog.afterClosed().subscribe(
+      resp => {
+        if (resp) {
+          this.srvAuth.logout();
+        }
+      });
     }
   }
-}
+

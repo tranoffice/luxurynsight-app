@@ -43,22 +43,28 @@ export class LoginComponent implements OnInit {
    * Procédure de login
    */
   login() {
-    this.srvAuth.login( this.loginForm.value.email, this.loginForm.value.password).subscribe(
-      res => {
-        if ( res.status === 200) {
-          /** Authentificatio OK */
-          if ( this.loginForm.value.rememberme ) {
-            /** Mémoriser l'utilisateur si demandé */
-            localStorage.setItem('userLogged', this.loginForm.value.email);
+    const isValidEmail = new RegExp('^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$');
+    if ( !isValidEmail.test(this.loginForm.value.email) ) {
+      /** format email invalid */
+      this.loginForm.controls.email.setErrors({ InvalidEmail: true });
+    } else {
+      /** authentification avec l'api */
+      this.srvAuth.login( this.loginForm.value.email, this.loginForm.value.password).subscribe(
+        res => {
+          if ( res.status === 200) {
+            /** Authentificatio OK */
+            if ( this.loginForm.value.rememberme ) {
+              /** Mémoriser l'utilisateur si demandé */
+              localStorage.setItem('userLogged', this.loginForm.value.email);
+            }
+            this.router.navigate(['/']);
+          } else {
+            /** Authentificatio KO */
+            this.loginForm.controls.email.setErrors({ InvalidEmail: true });
+            this.loginForm.controls.password.setErrors({ InvalidPassword: true });
           }
-          this.router.navigate(['/']);
-        } else {
-          /** Authentificatio KO */
-          this.loginForm.controls.email.setErrors({ InvalidEmail: true });
-          this.loginForm.controls.password.setErrors({ InvalidPassword: true });
         }
-      }
-    );
+      );
+    }
   }
-
 }

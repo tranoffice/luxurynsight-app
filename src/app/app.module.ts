@@ -12,6 +12,7 @@ import { HomeComponent } from './home/components/home/home.component';
 import { HeaderComponent } from './header/components/header/header.component';
 import { LoginComponent } from './account/components/login/login.component';
 import { AccountComponent } from './account/components/account/account.component';
+import { DialogPanelComponent } from './shared/components/dialog-panel/dialog-panel.component';
 
 import { HeaderService } from './header/services/header.service';
 import { AuthService } from './account/services/auth.service';
@@ -26,6 +27,7 @@ import 'hammerjs';
     HeaderComponent,
     LoginComponent,
     AccountComponent,
+    DialogPanelComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,11 +40,15 @@ import 'hammerjs';
     BrowserAnimationsModule,
   ],
   exports: [
+    DialogPanelComponent,
   ],
   providers: [
     HeaderService,
     AuthService,
     AuthGuardService,
+  ],
+  entryComponents: [
+    DialogPanelComponent,
   ],
   bootstrap: [AppComponent]
 })

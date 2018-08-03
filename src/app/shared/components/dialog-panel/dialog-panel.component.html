@@ -1,0 +1,16 @@
+<div>
+  <div class="dialog-header">
+      <h1 mat-dialog-title>{{data.title}}</h1>
+  </div>
+
+  <div *ngIf="data.content" mat-dialog-content>
+      <p>{{data.content}}</p>
+  </div>
+
+  <br/>
+  <div mat-dialog-actions *ngIf="data.type == 'yesno'" style="justify-content: center;padding : 0px 150px;margin-bottom : 24px;">
+      <button name="yes" mat-raised-button color="primary" (click)="dialogRef.close(true)">Yes</button>
+      <button name="no" mat-raised-button color="primary" (click)="dialogRef.close(false)" cdkFocusInitial>No</button>
+      <br/>
+  </div>
+</div>
