@@ -11,5 +11,7 @@
       <input name='email' formControlName='email' matInput placeholder="Email Address" required>
     </mat-form-field>
     <button mat-raised-button color="accent">Save</button>
+    <br>
+    <span *ngIf="msgerr">{{msgerr}}</span>
   </form>
 </div>

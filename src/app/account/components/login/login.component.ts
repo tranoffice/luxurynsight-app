@@ -11,7 +11,11 @@ import { Account } from '../../../shared/models/account';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  /** formulaire de saisie */
   loginForm: FormGroup;
+
+  /** message d'erreur */
+  msgerr = '';
 
   constructor(
     private srvAuth: AuthService,
@@ -20,9 +24,9 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    /** todo : à enlever les valeurs par défaut */
-    let mem_email = 'bertrand.tran.office@gmail.com';
+    let mem_email = '';
     const mem_password = '9w8RQ2';
+    /** 9w8RQ2*/
 
     /** Remettre le dernier utilisateur mémorisé */
     if (localStorage.getItem('userLogged')) {
@@ -43,19 +47,24 @@ export class LoginComponent implements OnInit {
    * Procédure de login
    */
   login() {
+    this.msgerr = '';
     const isValidEmail = new RegExp('^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$');
     if ( !isValidEmail.test(this.loginForm.value.email) ) {
       /** format email invalid */
       this.loginForm.controls.email.setErrors({ InvalidEmail: true });
+      this.msgerr = 'Error : invalid email address !';
     } else {
       /** authentification avec l'api */
       this.srvAuth.login( this.loginForm.value.email, this.loginForm.value.password).subscribe(
         res => {
+          console.log(res);
           if ( res.status === 200) {
             /** Authentificatio OK */
             if ( this.loginForm.value.rememberme ) {
               /** Mémoriser l'utilisateur si demandé */
               localStorage.setItem('userLogged', this.loginForm.value.email);
+            } else {
+              localStorage.removeItem('userLogged');
             }
             this.router.navigate(['/']);
           } else {
@@ -63,6 +72,10 @@ export class LoginComponent implements OnInit {
             this.loginForm.controls.email.setErrors({ InvalidEmail: true });
             this.loginForm.controls.password.setErrors({ InvalidPassword: true });
           }
+        },
+        err => {
+          console.log(err);
+          this.msgerr = 'Server not responding : ' + err.message;
         }
       );
     }

@@ -11,14 +11,12 @@ export class AuthGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     console.log(localStorage.getItem('authSession'));
 
-    if (localStorage.getItem('authSession')) {
-      /** Todo : vérifier la validité le token de session */
-      return of(true);
+    if (localStorage.getItem('authSession') && this.srvAuth.userAccount ) {
+        return of(true);
     } else {
       /** Pas de token de session : forcer la procédure de login */
       this.router.navigate(['/login']);
       return of(false);
     }
   }
-
 }

@@ -13,7 +13,9 @@
         <span>Or invalid password</span>
       </mat-error>
     </mat-form-field>
-    <mat-checkbox name='rememberme' formControlName='rememberme'>Remenber me</mat-checkbox>
+    <mat-checkbox name='rememberme' formControlName='rememberme'>Remember me</mat-checkbox>
     <button mat-raised-button color="accent">Sign In</button>
+    <br>
+    <span *ngIf="msgerr">{{msgerr}}</span>
   </form>
 </div>

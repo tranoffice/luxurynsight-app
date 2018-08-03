@@ -23,54 +23,26 @@ export class AuthService {
    * @param password : mot de passe saisi dans le formulaire
    */
   login( email: string, password: string ) {
-
-    const restemp = {
-      'status': 200,
-      'message': 'OK!',
-      'user': {
-        'email': 'bertrand.tran.office@gmail.com',
-        'firstname': 'bertrand3',
-        'lastname': 'tran',
-        'session': 'c16a5320fa475530d9583c34fd356ef5'
-      }
-    };
-    if ( password !== '9w8RQ2' || email !== 'bertrand.tran.office@gmail.com' ) {
-      restemp.status = 403;
-    }
-    return(of(restemp).pipe(
-      map( res => {
-        /** Login OK */
-        if (res.status === 200) {
-          /** Mémorisation le token de session */
-          localStorage.setItem('authSession', res.user.session);
-          this.userAccount = res.user;
-          /** Déclencher l'observable pour signaler l'état de connexion */
-          this.userLogged.next(this.userAccount);
-        }
-        return(res);
-      })
-    ));
-
-    // const headers = new HttpHeaders();
-    // headers.append('Content-Type', 'application/json');
-    // return this.http.post(
-    //     'https://www.luxurynsight.com/auth-test.php',
-    //     { email: email, password: password},
-    //     { headers: headers }
-    //   )
-    //   .pipe(
-    //     map( (res: ApiResponse) => {
-    //       /** Login OK */
-    //       if (res.status === 200) {
-    //         /** Mémorisation le token de session */
-    //         localStorage.setItem('authSession', res.user.session);
-    //         this.userAccount = res.user;
-    //         /** Déclencher l'observable pour signaler l'état de connexion */
-    //         this.userLogged.next(this.userAccount);
-    //       }
-    //       return(res);
-    //     })
-    //   );
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post(
+        'https://www.luxurynsight.com/auth-test.php',
+        { email: email, password: password},
+        { headers: headers }
+      )
+      .pipe(
+        map( (res: ApiResponse) => {
+          /** Login OK */
+          if (res.status === 200) {
+            /** Mémorisation le token de session */
+            localStorage.setItem('authSession', res.session);
+            this.userAccount = res.user;
+            /** Déclencher l'observable pour signaler l'état de connexion */
+            this.userLogged.next(this.userAccount);
+          }
+          return(res);
+        })
+      );
   }
 
   /**
@@ -88,6 +60,7 @@ export class AuthService {
    * @param newAccount : modification à apporter au compte de l'utilisateur
    */
   modifyAccount( newAccount: Account ) {
+    console.log(newAccount);
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post(
@@ -97,3 +70,30 @@ export class AuthService {
     );
   }
 }
+
+// const restemp = {
+//   'status': 200,
+//   'message': 'OK!',
+//   'user': {
+//     'email': 'bertrand.tran.office@gmail.com',
+//     'firstname': 'bertrand3',
+//     'lastname': 'tran',
+//     'session': 'c16a5320fa475530d9583c34fd356ef5'
+//   }
+// };
+// if ( password !== '9w8RQ2' || email !== 'bertrand.tran.office@gmail.com' ) {
+//   restemp.status = 403;
+// }
+// return(of(restemp).pipe(
+//   map( res => {
+//     /** Login OK */
+//     if (res.status === 200) {
+//       /** Mémorisation le token de session */
+//       localStorage.setItem('authSession', res.user.session);
+//       this.userAccount = res.user;
+//       /** Déclencher l'observable pour signaler l'état de connexion */
+//       this.userLogged.next(this.userAccount);
+//     }
+//     return(res);
+//   })
+// ));
